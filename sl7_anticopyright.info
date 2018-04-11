@@ -1,0 +1,5 @@
+name = Anticopyright
+description = Prevents copying of content from the site.
+package = SL7
+version = 7.x-1.0
+core = 7.x

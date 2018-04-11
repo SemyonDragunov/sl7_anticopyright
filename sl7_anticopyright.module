@@ -1,0 +1,24 @@
+<?php
+
+/**
+ * @file
+ * 	SL7 Anticopyright module.
+ * 
+ * @author Semyon Dragunov <sam.dragunov@gmail.com>
+ * https://github.com/SemyonDragunov
+ */
+
+/**
+ * Implements hook_preprocess_html().
+ */
+function sl7_anticopyright_preprocess_html(&$variables) {
+  $devel_status = db_select('system', 's')
+    ->condition('name', 'devel', '=')
+    ->fields('s', array('status'))
+    ->execute()
+    ->fetchField();
+
+  if ((isset($devel_status) && $devel_status == 0) && !path_is_admin(current_path())) {
+    drupal_add_js(drupal_get_path('module', 'sl7_anticopyright') . '/js/sl7_anticopyright.js', 'file');
+  }
+}
